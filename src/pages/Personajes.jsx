@@ -64,6 +64,7 @@ export const Personajes = () => {
     }
 
     return (
+        
         <div>
             <h1>Personajes</h1>
                     
@@ -82,12 +83,12 @@ export const Personajes = () => {
                         </div>
                 ))}
                 
-                    
+                               
                     
                 <div>
             <button onClick={handlePreviousPage} disabled={!previousPage}>Página anterior</button>
             <button onClick={handleNextPage} disabled={!nextPage}>Siguiente página</button>
             </div>
-        </>
+            </div>
     );
 };
