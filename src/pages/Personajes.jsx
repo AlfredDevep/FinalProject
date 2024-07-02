@@ -56,27 +56,19 @@ export const Personajes = () => {
         return <div>Cargando...</div>;
     }
 
-    const getImageUrl = (name) => {
-        // Aquí puedes definir una lógica para asignar URLs de imágenes basadas en el nombre
-        // Este es un ejemplo simple con una URL genérica que puedes personalizar
-        return `https://starwars-visualguide.com/assets/img/characters/${name.replace(/ /g, '-').toLowerCase()}.jpg`;
-    };
-
-
-
     return (
         <div>
-        <h1>Personajes</h1>
-        <ul>
-            {personajes.map(personaje => (
-                <li key={personaje.name}>
-                    <img src={getImageUrl(personaje.name)} alt={personaje.name} width="100" />
-                    <p>{personaje.name}</p>
-                </li>
-            ))}
-        </ul>
-        <button onClick={handlePreviousPage} disabled={!previousPage}>Página anterior</button>
-        <button onClick={handleNextPage} disabled={!nextPage}>Siguiente página</button>
-    </div>
+            <h1>Personajes</h1>
+            <ul>
+                {personajes.map((personaje, key) => (
+                    <li key={personaje.name}>
+                        <p>{personaje.name}</p>
+                        <img src={"https://starwars-visualguide.com/assets/img/characters/" + (key + 1) + ".jpg"} />
+                    </li>
+                ))}
+            </ul>
+            <button onClick={handlePreviousPage} disabled={!previousPage}>Página anterior</button>
+            <button onClick={handleNextPage} disabled={!nextPage}>Siguiente página</button>
+        </div>
     );
 };
