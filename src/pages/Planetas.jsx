@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 export const Planetas = () => {
     const [planetas, setPlanetas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState(null);
     const [previousPage, setPreviousPage] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -52,12 +55,18 @@ export const Planetas = () => {
         }
     };
 
+    const handleGoHome = () => {
+        navigate('/home');
+    }
+
+
     if (loading) {
         return <div>Cargando...</div>;
     }
 
     return (
         <div>
+            <button onClick={handleGoHome}>Ir a la página de inicio</button>
             <h1>Planetas</h1>
             <ul>
                 {planetas.map((planeta, key) => (
