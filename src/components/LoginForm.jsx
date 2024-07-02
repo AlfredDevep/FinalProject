@@ -1,16 +1,17 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase/config';
+import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth} from '../firebase/config';
 import { useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
 
   const onSubmitForm = async (data) => {
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+      await signInWithEmailAndPassword(auth.setPersistence, data.email, data.password);
       navigate('/home');
     } catch (error) {
       console.error(error.message);
@@ -18,6 +19,8 @@ const LoginForm = () => {
   };
 
   return (
+    <div className='fondo' style={{backgroundImage: 'url(https://images6.alphacoders.com/523/523275.jpg)'}}>
+    
     <div className="d-flex justify-content-center align-items-center vh-100">
       <form onSubmit={handleSubmit(onSubmitForm)} className="p-4 border rounded bg-light">
         <div className="mb-3">
@@ -34,6 +37,7 @@ const LoginForm = () => {
         <button onClick={() => navigate('/')} type="button" className="btn btn-secondary w-100 mt-2">Regresar</button>
       </form>
     </div>
+</div>
   );
 };
 
