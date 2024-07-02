@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 export const Personajes = () => {
     const [personajes, setPersonajes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState(null);
     const [previousPage, setPreviousPage] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -52,12 +55,16 @@ export const Personajes = () => {
         }
     };
 
+    const handleGoHome = () => {
+        navigate('/home');
+    };
+
     if (loading) {
         return <div>Cargando...</div>;
     }
 
     return (
-        <>
+        <div>
             <h1>Personajes</h1>
                     
                     
