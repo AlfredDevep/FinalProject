@@ -64,16 +64,18 @@ export const Peliculas = () => {
     return (
         <div>
             <h1>Películas de Star Wars</h1>
-            <ul>
+            <div className="row">
                 {peliculas.map(pelicula => (
-                    <li key={pelicula.episode_id}>
-                        <img src={getImageUrl(pelicula.episode_id)} alt={pelicula.title} width="100" onError={(e) => {e.target.onerror = null; e.target.src="https://starwars-visualguide.com/assets/img/placeholder.jpg";}} />
+                    <div style={{width:'18rem', height:'20rem'}}>
+                    <div className="card" key={pelicula.episode_id}>
+                        <img src={getImageUrl(pelicula.episode_id)} alt={pelicula.title} width="50%"  onError={(e) => {e.target.onerror = null; e.target.src="https://starwars-visualguide.com/assets/img/placeholder.jpg";}} />
                         <p>{pelicula.title}</p>
                         <p>Director: {pelicula.director}</p>
                         <p>Fecha de lanzamiento: {pelicula.release_date}</p>
-                    </li>
+                    </div>
+                    </div>
                 ))}
-            </ul>
+            </div>
             <button onClick={handlePreviousPage} disabled={!previousPage}>Página anterior</button>
             <button onClick={handleNextPage} disabled={!nextPage}>Siguiente página</button>
         </div>

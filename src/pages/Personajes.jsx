@@ -57,18 +57,30 @@ export const Personajes = () => {
     }
 
     return (
-        <div>
+        <>
             <h1>Personajes</h1>
-            <ul>
-                {personajes.map((personaje, key) => (
-                    <li key={personaje.name}>
-                        <p>{personaje.name}</p>
-                        <img src={"https://starwars-visualguide.com/assets/img/characters/" + (key + 1) + ".jpg"} />
-                    </li>
+                    
+                    
+                    {personajes.map((personaje, key) => (
+                        <div className='card' style={{width:'18rem', height:'20rem'}}>
+                        <div className='card-body'>
+                        <div className='col-md-6 col-sm-12 col-lg-4 g-2' >
+                                <img src={"https://starwars-visualguide.com/assets/img/characters/" + (key + 1) + ".jpg"} width={'100%'} />
+                                <div>
+                                <h5 className='card-title'>{personaje.name}</h5>       
+                                </div>
+                                <p className='card-text'>Name:{personaje.name}</p>
+                            </div>
+                        </div>
+                        </div>
                 ))}
-            </ul>
+                
+                    
+                    
+                <div>
             <button onClick={handlePreviousPage} disabled={!previousPage}>Página anterior</button>
             <button onClick={handleNextPage} disabled={!nextPage}>Siguiente página</button>
-        </div>
+            </div>
+        </>
     );
 };
