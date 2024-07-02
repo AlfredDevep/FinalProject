@@ -56,19 +56,15 @@ export const Planetas = () => {
         return <div>Cargando...</div>;
     }
 
-    const getImageUrl = (name) => {
-        // Genera la URL de la imagen basada en el nombre del planeta
-        return `https://starwars-visualguide.com/assets/img/planets/${name.replace(/ /g, '-').toLowerCase()}.jpg`;
-    };
-
     return (
         <div>
             <h1>Planetas</h1>
             <ul>
-                {planetas.map(planeta => (
+                {planetas.map((planeta, key) => (
                     <li key={planeta.name}>
-                        <img src={getImageUrl(planeta.name)} alt={planeta.name} width="100" onError={(e) => {e.target.onerror = null; e.target.src="https://starwars-visualguide.com/assets/img/placeholder.jpg";}} />
+                        <img src={"https://starwars-visualguide.com/assets/img/planets/" + (key + 2) + ".jpg"} />
                         <p>{planeta.name}</p>
+
                     </li>
                 ))}
             </ul>
