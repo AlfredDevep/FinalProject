@@ -6,6 +6,7 @@ const HomePage = () => {
 
   return (
     <div className='contenedor'style={{backgroundImage:'url(https://i.pinimg.com/originals/bc/8e/da/bc8eda437408f5fe7543665843e8b218.jpg)', backgroundRepeat:'no-repeat', backgroundSize:'', width:'auto', height:'auto'}}>
+    
     <div className="d-flex flex-column justify-content-center align-items-center vh-100 text-warning">
       <h1>Bienvenido</h1>
       <div className="mb-3">

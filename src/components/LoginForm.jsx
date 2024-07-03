@@ -12,6 +12,7 @@ export const LoginForm = () => {
   const onSubmitForm = async (data) => {
     try {
       await signInWithEmailAndPassword(auth.setPersistence, data.email, data.password);
+      
       navigate('/home');
     } catch (error) {
       console.error(error.message);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { NavbarComponent } from '../components/NavbarComponent';
 
 export const Personajes = () => {
     const [personajes, setPersonajes] = useState([]);
@@ -66,12 +67,13 @@ export const Personajes = () => {
     return (
         
         <div>
+        <NavbarComponent />
             <h1>Personajes</h1>
-                    
-                    
+            <button onClick={handleGoHome}>Ir a la página de inicio</button>
+                    <div className='row'>
                     {personajes.map((personaje, key) => (
-                        <div className='card' style={{width:'18rem', height:'20rem'}}>
-                        <div className='card-body'>
+                        <div style={{width:'18rem', height:'20rem'}}>
+                        <div className='card'>
                         <div className='col-md-6 col-sm-12 col-lg-4 g-2' >
                                 <img src={"https://starwars-visualguide.com/assets/img/characters/" + (key + 1) + ".jpg"} width={'100%'} />
                                 <div>
@@ -81,10 +83,11 @@ export const Personajes = () => {
                             </div>
                         </div>
                         </div>
+                        
                 ))}
                 
                                
-                    
+                </div>
                 <div>
             <button onClick={handlePreviousPage} disabled={!previousPage}>Página anterior</button>
             <button onClick={handleNextPage} disabled={!nextPage}>Siguiente página</button>

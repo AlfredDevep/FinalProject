@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
+import { NavbarComponent } from './NavbarComponent';
 //import { LoginForm } from './LoginForm';
 
 
@@ -22,6 +23,7 @@ const Home = () => {
 
   return (
     <div  style={{backgroundImage: 'url(https://m.media-amazon.com/images/I/A11fIxcmFtL._AC_UF894,1000_QL80_.jpg)', backgroundSize:'cover'}}>
+      <NavbarComponent />
       <div className="d-flex flex-column align-items-center vh-100">
         
         <h1 className='text-warning'>Bienvenido a la página de inicio</h1>
@@ -46,9 +48,7 @@ const Home = () => {
             <Link to="/personajes">Personajes</Link>
             </div>
             </div>
-            <div style={{width:'18rem', height:'20rem'}}>
-            <Link to="../firebase/session">Datos</Link>
-            </div>
+            
             </div>
         
         <button onClick={handleLogout} className="btn btn-danger">Cerrar sesión</button>
