@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,11 +11,16 @@ const schema = yup.object().shape({
   password: yup.string().min(8, 'La contraseña debe tener al menos 8 caracteres').required('El password es obligatorio'),
   confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Las contraseñas deben coincidir').required('La confirmación de contraseña es obligatoria')
 });
+export function Datos() {
+  const [email, setEmail]=useState("")
+  const [contraseña, setContraseña]= useState("")
+}
 
 const RegisterForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
+  setEmail([email])
   const navigate = useNavigate();
 
   const onSubmitForm = async (data) => {
@@ -33,7 +38,9 @@ const RegisterForm = () => {
       <form onSubmit={handleSubmit(onSubmitForm)} className="p-4 border rounded bg-light">
         <div className="mb-3">
           <label htmlFor="email" className="form-label" name="email">Email</label>
-          <input id="email" 
+          <input id="email"
+            value={correo}
+            onChange={e=> setEmail(e.target.value)} 
             type="email" 
             className="form-control" 
             placeholder="Ingresa tu email" 
