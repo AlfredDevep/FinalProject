@@ -1,18 +1,18 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
+import { browserSessionPersistence, inMemoryPersistence, setPersistence, signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth';
 import { auth} from '../firebase/config';
 import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
+import { GoogleAuthProvider } from 'firebase/auth/web-extension';
 
 export const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
 
   const onSubmitForm = async (data) => {
-    try {
+     try {
       await signInWithEmailAndPassword(auth.setPersistence, data.email, data.password);
-      
       navigate('/home');
     } catch (error) {
       console.error(error.message);

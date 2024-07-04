@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { NavbarComponent } from './NavbarComponent';
+
 //import { LoginForm } from './LoginForm';
 
 
@@ -26,7 +27,7 @@ const Home = () => {
       <NavbarComponent />
       <div className="d-flex flex-column align-items-center vh-100">
         
-        <h1 className='text-warning'>Bienvenido a la página de inicio</h1>
+        <h1 className='text-warning'>Bienvenido a la página de inicio </h1>
         
         
           <div className='row'>

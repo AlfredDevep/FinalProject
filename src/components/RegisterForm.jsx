@@ -20,8 +20,9 @@ const RegisterForm = () => {
 
   const onSubmitForm = async (data) => {
     try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
-      navigate('/home');
+     const userCredentials = await createUserWithEmailAndPassword(auth, data.email, data.password);
+     console.log(userCredentials); 
+     navigate('/home');
     } catch (error) {
       console.error(error.message);
     }
@@ -31,7 +32,7 @@ const RegisterForm = () => {
     <div className="d-flex justify-content-center align-items-center vh-100">
       <form onSubmit={handleSubmit(onSubmitForm)} className="p-4 border rounded bg-light">
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email</label>
+          <label htmlFor="email" className="form-label" name="email">Email</label>
           <input id="email" 
             type="email" 
             className="form-control" 
