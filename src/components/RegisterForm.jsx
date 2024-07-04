@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  {React, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,22 +11,17 @@ const schema = yup.object().shape({
   password: yup.string().min(8, 'La contraseña debe tener al menos 8 caracteres').required('El password es obligatorio'),
   confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Las contraseñas deben coincidir').required('La confirmación de contraseña es obligatoria')
 });
-export function Datos() {
-  const [email, setEmail]=useState("")
-  const [contraseña, setContraseña]= useState("")
-}
 
 const RegisterForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
-  setEmail([email])
   const navigate = useNavigate();
 
   const onSubmitForm = async (data) => {
     try {
-     const userCredentials = await createUserWithEmailAndPassword(auth, data.email, data.password);
-     console.log(userCredentials); 
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      
      navigate('/home');
     } catch (error) {
       console.error(error.message);
@@ -38,23 +33,18 @@ const RegisterForm = () => {
       <form onSubmit={handleSubmit(onSubmitForm)} className="p-4 border rounded bg-light">
         <div className="mb-3">
           <label htmlFor="email" className="form-label" name="email">Email</label>
-          <input id="email"
-            value={correo}
-            onChange={e=> setEmail(e.target.value)} 
-            type="email" 
-            className="form-control" 
-            placeholder="Ingresa tu email" 
-            {...register('email', {required: 'El correo es requerido'})} />
+          <input id="email" 
+          type="email" 
+          className="form-control" placeholder="Ingresa tu email" 
+            {...register('email', {required: 'El correo es requerido'})}/>
           {errors.email && <p className="text-danger">{errors.email.message}</p>}
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
-          <input id="password" 
-            type="password" 
-            className="form-control" 
-            placeholder="Ingresa tu contraseña" 
-            {...register('password', {required: 'Contrasenya requerida'})} />
-          {errors.password && <p className="text-danger">{errors.password.message}</p>}
+          <input id="password" type="password" 
+            className="form-control" placeholder="Ingresa tu contraseña" 
+            {...register('password', {required: 'Contrasenya requerida'})}/>
+            {errors.password && <p className="text-danger">{errors.password.message}</p>}
         </div>
         <div className="mb-3">
           <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
@@ -68,6 +58,7 @@ const RegisterForm = () => {
         <button type="submit" className="btn btn-primary w-100">Registrarse</button>
         <button onClick={() => navigate('/')} type="button" className="btn btn-secondary w-100 mt-2">Regresar</button>
       </form>
+     
     </div>
   );
 };
