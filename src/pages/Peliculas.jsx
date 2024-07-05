@@ -57,9 +57,6 @@ export const Peliculas = () => {
         }
     };
 
-    const handleGoHome = () => {
-        navigate('/home');
-    }
 
     if (loading) {
         return <div>Cargando...</div>;
@@ -75,7 +72,6 @@ export const Peliculas = () => {
         <div>
             <NavbarComponent />
             <div className="container">
-                <button className="btn btn-primary my-3" onClick={handleGoHome}>Ir a la página de inicio</button>
                 <h1>Películas de Star Wars</h1>
                 <div className="row">
                     {peliculas.map(pelicula => (
