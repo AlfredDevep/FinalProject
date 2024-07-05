@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { NavbarComponent } from '../components/NavbarComponent';
+import StarOutline from '@mui/icons-material/StarOutline';
 
 export const Personajes = () => {
     const [personajes, setPersonajes] = useState([]);
@@ -93,8 +94,16 @@ export const Personajes = () => {
                             <div className="card h-100">
                                 <img src={`https://starwars-visualguide.com/assets/img/characters/${key + 1}.jpg`} className="card-img-top" alt={personaje.name} />
                                 <div className="card-body">
-                                    <h5 className="card-title">{personaje.name}</h5>
+                                    <StarOutline />
                                     <p className="card-text">Name: {personaje.name}</p>
+                                    <p className="card-text">Height: {personaje.height}</p>
+                                    <p className="card-text">Mass: {personaje.mass}</p>
+                                    <p className="card-text">Hair color: {personaje.hair_color}</p>
+                                    <p className="card-text">Eye color: {personaje.eye_color}</p>
+                                    <p className="card-text">Skin color: {personaje.skin_color}</p>
+                                    <p className="card-text">Birth year: {personaje.birth_year}</p>
+                                    <p className="card-text text-muted">Created: {personaje.created}</p>
+                                    <p className="card-text text-muted">Edited: {personaje.edited}</p>
                                 </div>
                             </div>
                         </div>
