@@ -60,29 +60,48 @@ export const Planetas = () => {
 
     return (
         <div>
-        <NavbarComponent />
-            <h1>Planetas</h1>
-            <div className='row'>
-                {planetas.map((planeta, key) => (
-                    <div style={{width:'18rem', height:'20rem'}}>
-                    <div className='card' key={planeta.name}>
-                        <img src={"https://starwars-visualguide.com/assets/img/planets/" + (key + 2) + ".jpg"} />
-                        <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            
-                            <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-                        </svg>
-                        <p>{planeta.name}</p>
+            <NavbarComponent />
+            <div className="container mt-4">
+                <h1 >Planetas</h1>
+                <div className="row">
+                    {planetas.map((planeta, key) => (
+                        <div className="col-md-4 mb-4" key={key}>
+                            <div className="card h-100">
+                                <img
+                                    src={`https://starwars-visualguide.com/assets/img/planets/${key + 2}.jpg`}
+                                    className="card-img-top"
+                                    alt={planeta.name}
+                                />
+                                <div className="card-body">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="icon icon-tabler icon-tabler-star"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="#000000"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                                    </svg>
+                                    <p>{planeta.name}</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    </div>
-                ))}
-            </div>
-            <div className='column'>
-            <button onClick={handlePreviousPage} disabled={!previousPage}>Página anterior</button>
-            <button onClick={handleNextPage} disabled={!nextPage}>Siguiente página</button>
+                    ))}
+                </div>
+                <div className="d-flex justify-content-between m-7 ">
+                    <button onClick={handlePreviousPage} disabled={!previousPage} className="btn btn-primary">
+                        Página anterior
+                    </button>
+                    <button onClick={handleNextPage} disabled={!nextPage} className="btn btn-primary">
+                        Siguiente página
+                    </button>
+                </div>
             </div>
         </div>
     );
