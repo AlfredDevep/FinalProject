@@ -85,7 +85,8 @@ export const Planetas = () => {
                                     <p>Terrain : {planeta.terrain}</p>
                                     <p>Diameter : {planeta.diameter}</p>
                                     <p>Population : {planeta.population}</p>
-
+                                    <p>Residents : {planeta.residents[0]}</p>                                    <p>Edited : {planeta.edited}</p>
+                                    <p>Created : {planeta.created}</p>
                                 </div>
                             </div>
                         </div>
