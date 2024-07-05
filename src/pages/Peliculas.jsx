@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { NavbarComponent } from '../components/NavbarComponent';
+import StarOutline from '@mui/icons-material/StarOutline';
 
 export const Peliculas = () => {
     const [peliculas, setPeliculas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState(null);
     const [previousPage, setPreviousPage] = useState(null);
-    
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -70,28 +71,39 @@ export const Peliculas = () => {
     };
 
     return (
-        
+
         <div>
-        <NavbarComponent />
-            <button onClick={handleGoHome}>Ir a la página de inicio</button>
-            <h1>Películas de Star Wars</h1>
-            <div className="row">
-                {peliculas.map(pelicula => (
-                    <div style={{width:'18rem', height:'20rem'}}>
-                    <div className="card" key={pelicula.episode_id}>
-                        <img src={getImageUrl(pelicula.episode_id)} alt={pelicula.title} width="50%"  onError={(e) => {e.target.onerror = null; e.target.src="https://starwars-visualguide.com/assets/img/placeholder.jpg";}} />
-                        
-                        <p>{pelicula.title}</p>
-                        <p>Director: {pelicula.director}</p>
-                        <p>Fecha de lanzamiento: {pelicula.release_date}</p>
-                        
-                    </div>
-                    </div>
-                ))}
-            </div>
-            <div className='Footer'>
-            <button onClick={handlePreviousPage} disabled={!previousPage}>Página anterior</button>
-            <button onClick={handleNextPage} disabled={!nextPage}>Siguiente página</button>
+            <NavbarComponent />
+            <div className="container">
+                <button className="btn btn-primary my-3" onClick={handleGoHome}>Ir a la página de inicio</button>
+                <h1>Películas de Star Wars</h1>
+                <div className="row">
+                    {peliculas.map(pelicula => (
+                        <div className="col-md-4 mb-4" key={pelicula.episode_id}>
+                            <div className="card" style={{ height: '100%' }}>
+                                <img
+                                    src={getImageUrl(pelicula.episode_id)}
+                                    alt={pelicula.title}
+                                    className="card-img-top"
+                                    onError={(e) => { e.target.onerror = null; e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"; }}
+                                />
+                                <div className="card-body">
+                                    <StarOutline />
+                                    <h5 className="card-title">{pelicula.title}</h5>
+                                    <p className="card-text">Director: {pelicula.director}</p>
+                                    <p className="card-text">Productor: {pelicula.producer}</p>
+                                    <p className="card-text">Fecha de lanzamiento: {pelicula.release_date}</p>
+                                    <p className="card-text">Episodio: {pelicula.episode_id}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div className="d-flex justify-content-between my-3">
+                    <button className="btn btn-secondary" onClick={handlePreviousPage} disabled={!previousPage}>Página anterior</button>
+                    <button className="btn btn-secondary" onClick={handleNextPage} disabled={!nextPage}>Siguiente página</button>
+                </div>
             </div>
         </div>
     );
