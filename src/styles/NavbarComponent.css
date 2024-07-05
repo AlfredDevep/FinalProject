@@ -1,0 +1,38 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-section {
+  display: flex;
+  align-items: center;
+}
+
+.search-section {
+  display: flex;
+  align-items: center;
+}
+
+.icons-section {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust the gap between icons */
+  padding: 20px; /* Add padding */
+}
+
+.search-input {
+  margin-left: 8px;
+  width: 200px;
+}
+
+/* Additional styles for the Chip */
+.navbar-section .MuiChip-root {
+  margin-right: 16px; /* Add margin to the right of the Chip */
+}
+
+  
+
+  .navbar-section .MuiChip-root {
+    margin-right: 16px; /* Add margin to the right of the Chip */
+  }
