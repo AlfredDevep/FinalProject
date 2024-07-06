@@ -20,6 +20,7 @@ const RegisterForm = () => {
 
   const onSubmitForm = async (data) => {
     try {
+     
       await createUserWithEmailAndPassword(auth, data.email, data.password);
       
      navigate('/home');
