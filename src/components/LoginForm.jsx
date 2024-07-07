@@ -7,16 +7,20 @@ import { useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider } from 'firebase/auth/web-extension';
 
+
 export const LoginForm = () => {
+
+
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [registrando, setRegistrando]=useState(false)
-//agruegue esta funcion la cual hizo que el codigo me funcionara
+  //const [email, setEmail] =useState("email");
+  //agruegue esta funcion la cual hizo que el codigo me funcionara
   const functAutenticacion = async(e)=>{
     e.preventDefault();
     
     const email = e.target.email.value;
     const password = e.target.password.value;
-   
+    //console.log(email);
     if (registrando){
       await createUserWithEmailAndPassword(auth, email, password);
       navigate('/home');
@@ -25,6 +29,7 @@ export const LoginForm = () => {
       await signInWithEmailAndPassword(auth, email, password);
     }
     }
+
 
   const navigate = useNavigate();
 /*
@@ -41,11 +46,12 @@ export const LoginForm = () => {
   };*/
 
   return (
+    
     <div className='fondo' style={{backgroundImage: 'url(https://images6.alphacoders.com/523/523275.jpg)'}}>
     
     <div className="d-flex justify-content-center align-items-center vh-100">
     
-      <form onSubmit={functAutenticacion/**Aca cambie la funcion */} className="p-4 border rounded bg-light">
+      <form onSubmit={functAutenticacion/**Aca cambie la funcion */}  className="p-4 border rounded bg-light">
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email</label>
           <input id="email" type="email" className="form-control" placeholder="Ingresa tu email" {...register('email', { required: 'El email es requerido' })} />
@@ -56,11 +62,12 @@ export const LoginForm = () => {
           <input id="password" type="password" className="form-control" placeholder="Ingresa tu contraseña" {...register('password', { required: 'La contraseña es requerida' })} />
           {errors.password && <p className="text-danger">{errors.password.message}</p>}
         </div>
-        <button type="submit" className="btn btn-primary w-100">Iniciar sesión</button>
+        <button type="submit" className="btn btn-primary w-100" >Iniciar sesión</button>
         <button  type="button" className="btn btn-secondary w-100 mt-2">Regresar</button>
       </form>
     </div>
 </div>
+
   );
 };
 

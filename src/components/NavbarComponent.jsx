@@ -6,6 +6,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import StarOutline from '@mui/icons-material/StarOutline';
 import '../styles/NavbarComponent.css';
 import { useNavigate } from 'react-router';
+import LoginForm from './LoginForm';
 
 export const NavbarComponent = ({ favorites }) => {
 
