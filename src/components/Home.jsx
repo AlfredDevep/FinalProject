@@ -23,6 +23,7 @@ const Home = () => {
 
   return (
     <div style={{ backgroundImage: 'url(https://m.media-amazon.com/images/I/A11fIxcmFtL._AC_UF894,1000_QL80_.jpg)', backgroundSize: 'cover' }}>
+      <NavbarComponent />
       <div className="d-flex flex-column align-items-center vh-100 justify-content-center text-center">
       <button onClick={handleLogout} className="btn btn-danger mt-4">Cerrar sesión</button>
         <h1 className='text-warning mb-4'>Welcome to Star Wars</h1>
