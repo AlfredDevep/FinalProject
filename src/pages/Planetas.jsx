@@ -1,13 +1,18 @@
+// pages/Planetas.jsx
+// pages/Planetas.jsx
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { NavbarComponent } from '../components/NavbarComponent';
-import StarOutline from '@mui/icons-material/StarOutline';
+import Planeta from '../pages/Planeta';
 
-
-export const Planetas = () => {
-    const [planetas, setPlanetas] = useState([]);
+const Planetas = ({ favoritePlanets, setFavoritePlanets }) => {
     const [loading, setLoading] = useState(true);
+    const [planetas, setPlanetas] = useState([]);
     const [nextPage, setNextPage] = useState(null);
     const [previousPage, setPreviousPage] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -16,8 +21,8 @@ export const Planetas = () => {
             .then(response => response.json())
             .then(data => {
                 setPlanetas(data.results);
-                setNextPage(data.next); // Save the URL of the next page
-                setPreviousPage(data.previous); // Save the URL of the previous page
+                setNextPage(data.next);
+                setPreviousPage(data.previous);
                 setLoading(false);
             })
             .catch(error => {
@@ -33,8 +38,8 @@ export const Planetas = () => {
             .then(response => response.json())
             .then(data => {
                 setPlanetas(data.results);
-                setNextPage(data.next); // Update the URL of the next page
-                setPreviousPage(data.previous); // Update the URL of the previous page
+                setNextPage(data.next);
+                setPreviousPage(data.previous);
                 setLoading(false);
             })
             .catch(error => {
@@ -55,48 +60,74 @@ export const Planetas = () => {
         }
     };
 
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const handleAddFavorite = (planeta) => {
+        if (!favoritePlanets.some(fav => fav.name === planeta.name)) {
+            setFavoritePlanets([...favoritePlanets, planeta]);
+            console.log('Planeta agregado a favoritos:', planeta);
+        }
+    };
+
+    const handleRemoveFavorite = (planeta) => {
+        setFavoritePlanets(favoritePlanets.filter(fav => fav.name !== planeta.name));
+        console.log('Planeta removido de favoritos:', planeta);
+    };
+
+    const isFavorite = (planeta) => {
+        return favoritePlanets.some(fav => fav.name === planeta.name);
+    };
+
+    const handleViewFavorites = () => {
+        navigate('/favorite-planets');
+    };
+
+    const filteredPlanetas = planetas.filter(planeta =>
+        planeta.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     if (loading) {
-        return <div>Cargando...</div>;
+        return <div className="text-center mt-4">Cargando...</div>;
     }
 
     return (
         <div>
             <NavbarComponent />
             <div className="container mt-4">
-                <h1 >Planetas</h1>
-                <div className="row">
-                    {planetas.map((planeta, key) => (
-                        <div className="col-md-4 mb-4" key={key}>
-                            <div className="card h-100">
-                                <img
-                                    src={`https://starwars-visualguide.com/assets/img/planets/${key + 2}.jpg`}
-                                    className="card-img-top"
-                                    alt={planeta.name}
-                                />
-                                <div className="card-body">
-                                    <StarOutline/>
-                                    <p>Name : {planeta.name}</p>
-                                    <p>Climate : {planeta.climate}</p>
-                                    <p>Gravity : {planeta.gravity}</p>
-                                    <p>Orbital Period : {planeta.orbital_period}</p>
-                                    <p>Rotation Period : {planeta.rotation_period}</p>
-                                    <p>Surface Water : {planeta.surface_water}</p>
-                                    <p>Terrain : {planeta.terrain}</p>
-                                    <p>Diameter : {planeta.diameter}</p>
-                                    <p>Population : {planeta.population}</p>
-                                    <p>Residents : {planeta.residents[0]}</p>                                    <p>Edited : {planeta.edited}</p>
-                                    <p>Created : {planeta.created}</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                <h1>Planetas</h1>
+                <button className="btn btn-primary mb-4" onClick={handleViewFavorites}>Ver Planetas Favoritos</button>
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Buscar por nombre..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
                 </div>
-                <div className="d-flex justify-content-between m-7 ">
-                    <button onClick={handlePreviousPage} disabled={!previousPage} className="btn btn-primary">
+                <div className="row">
+                    {filteredPlanetas.map(planeta => (
+                        <Planeta
+                            key={planeta.name}
+                            planeta={planeta}
+                            isFavorite={isFavorite(planeta)}
+                            handleAddFavorite={handleAddFavorite}
+                            handleRemoveFavorite={handleRemoveFavorite}
+                        />
+                    ))}
+                    {filteredPlanetas.length === 0 && (
+                        <div className="col-12 mt-4">
+                            <p>No se encontraron planetas con ese nombre.</p>
+                        </div>
+                    )}
+                </div>
+                <div className="d-flex justify-content-between mt-4 mb-4">
+                    <button onClick={handlePreviousPage} disabled={!previousPage} className="btn btn-secondary">
                         Página anterior
                     </button>
-                    <button onClick={handleNextPage} disabled={!nextPage} className="btn btn-primary">
+                    <button onClick={handleNextPage} disabled={!nextPage} className="btn btn-secondary">
                         Siguiente página
                     </button>
                 </div>
@@ -104,3 +135,5 @@ export const Planetas = () => {
         </div>
     );
 };
+
+export default Planetas;

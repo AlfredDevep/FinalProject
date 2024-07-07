@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { NavbarComponent } from '../components/NavbarComponent';
 import StarOutline from '@mui/icons-material/StarOutline';
 
-export const Personajes = () => {
+const Personajes = ({ favorites, setFavorites }) => {
     const [personajes, setPersonajes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState(null);
@@ -18,8 +18,8 @@ export const Personajes = () => {
             .then(response => response.json())
             .then(data => {
                 setPersonajes(data.results);
-                setNextPage(data.next); // Save the URL of the next page
-                setPreviousPage(data.previous); // Save the URL of the previous page
+                setNextPage(data.next);
+                setPreviousPage(data.previous);
                 setLoading(false);
             })
             .catch(error => {
@@ -35,8 +35,8 @@ export const Personajes = () => {
             .then(response => response.json())
             .then(data => {
                 setPersonajes(data.results);
-                setNextPage(data.next); // Update the URL of the next page
-                setPreviousPage(data.previous); // Update the URL of the previous page
+                setNextPage(data.next);
+                setPreviousPage(data.previous);
                 setLoading(false);
             })
             .catch(error => {
@@ -57,12 +57,23 @@ export const Personajes = () => {
         }
     };
 
-    const handleGoHome = () => {
-        navigate('/home');
-    };
-
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
+    };
+
+    const handleAddFavorite = (personaje) => {
+        if (favorites && !favorites.includes(personaje)) {
+            setFavorites([...favorites, personaje]);
+            console.log('Personaje agregado a favoritos:', personaje);
+        }
+    };
+
+    const handleViewFavorites = () => {
+        navigate('/favorites');
+    };
+
+    const handleBackToPersonajes = () => {
+        navigate('/personajes');
     };
 
     const filteredPersonajes = personajes.filter(personaje =>
@@ -78,7 +89,7 @@ export const Personajes = () => {
             <NavbarComponent />
             <div className="container mt-4">
                 <h1>Personajes</h1>
-                <button className="btn btn-primary mb-4" onClick={handleGoHome}>Ir a la página de inicio</button>
+                <button className="btn btn-primary mb-4" onClick={handleViewFavorites}>Ver Favoritos</button>
                 <div className="mb-4">
                     <input
                         type="text"
@@ -89,12 +100,20 @@ export const Personajes = () => {
                     />
                 </div>
                 <div className="row">
-                    {filteredPersonajes.map((personaje, key) => (
+                    {filteredPersonajes.map((personaje, index) => (
                         <div className="col-md-4 mb-4" key={personaje.name}>
                             <div className="card h-100">
-                                <img src={`https://starwars-visualguide.com/assets/img/characters/${key + 1}.jpg`} className="card-img-top" alt={personaje.name} />
+                                <img
+                                    src={`https://starwars-visualguide.com/assets/img/characters/${index + 1}.jpg`}
+                                    className="card-img-top"
+                                    alt={personaje.name}
+                                    onError={(e) => { e.target.onerror = null; e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"; }}
+                                />
                                 <div className="card-body">
-                                    <StarOutline />
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <StarOutline onClick={() => handleAddFavorite(personaje)} style={{ cursor: 'pointer' }} />
+                                        <button className="btn btn-primary" onClick={() => handleAddFavorite(personaje)}>Agregar a Favoritos</button>
+                                    </div>
                                     <p className="card-text">Name: {personaje.name}</p>
                                     <p className="card-text">Height: {personaje.height}</p>
                                     <p className="card-text">Mass: {personaje.mass}</p>
@@ -126,3 +145,6 @@ export const Personajes = () => {
         </div>
     );
 };
+
+export default Personajes;
+

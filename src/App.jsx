@@ -6,14 +6,21 @@ import LoginForm from './components/LoginForm';
 import Home from './components/Home';
 import { auth } from './firebase/config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { Planetas } from './pages/Planetas';
-import { Personajes } from './pages/Personajes';
+import Planetas from './pages/Planetas';
 import { Peliculas } from './pages/Peliculas';
-
+import Favorites from './pages/Favorites';
+import Personajes from './pages/Personajes';
+import FavoritePlanetsPage from './pages/FavoritePlanetsPage';
+import  FavoriteMovie  from './pages/FavoriteMovie';
 
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+  const [favoritePlanets, setFavoritePlanets] = useState([]);
+  const [favoriteMovie, setFavoriteMovie] = useState([]);
+
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -26,14 +33,16 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<HomePage />} />
         <Route path="/register" element={user ? <Navigate to="/home" /> : <RegisterForm />} />
         <Route path="/login" element={user ? <Navigate to="/home" /> : <LoginForm />} />
         <Route path="/home" element={user ? <Home /> : <Navigate to="/" />} />
-        <Route path="*" element={<Navigate to="/" />} />
-        <Route path="/planetas" element={<Planetas/>}/>
-        <Route path="/peliculas" element={<Peliculas/>}/>
-        <Route path="/personajes" element={<Personajes/>}/>
+        <Route path="/personajes" element={<Personajes favorites={favorites} setFavorites={setFavorites} />} />
+        <Route path="/favorites" element={<Favorites favorites={favorites} setFavorites={setFavorites} />} />
+        <Route path="/planetas" element={<Planetas favoritePlanets={favoritePlanets} setFavoritePlanets={setFavoritePlanets} />} />
+        <Route path="/favorite-planets" element={<FavoritePlanetsPage favoritePlanets={favoritePlanets} setFavoritePlanets={setFavoritePlanets} />} />
+        <Route path="/peliculas" element={<Peliculas favoriteMovie={favoriteMovie} setFavoriteMovie={setFavoriteMovie} />} />
+        <Route path="/favorite-movie" element={<FavoriteMovie favoriteMovie={favoriteMovie} setFavoriteMovie={setFavoriteMovie} />} />
       </Routes>
     </Router>
   );

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { NavbarComponent } from '../components/NavbarComponent';
 import StarOutline from '@mui/icons-material/StarOutline';
+import StarIcon from '@mui/icons-material/Star';
 
-export const Peliculas = () => {
+export const Peliculas = ({ favoriteMovie, setFavoriteMovie }) => {
     const [peliculas, setPeliculas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState(null);
@@ -18,8 +19,8 @@ export const Peliculas = () => {
             .then(response => response.json())
             .then(data => {
                 setPeliculas(data.results);
-                setNextPage(data.next); // Save the URL of the next page
-                setPreviousPage(data.previous); // Save the URL of the previous page
+                setNextPage(data.next);
+                setPreviousPage(data.previous);
                 setLoading(false);
             })
             .catch(error => {
@@ -35,8 +36,8 @@ export const Peliculas = () => {
             .then(response => response.json())
             .then(data => {
                 setPeliculas(data.results);
-                setNextPage(data.next); // Update the URL of the next page
-                setPreviousPage(data.previous); // Update the URL of the previous page
+                setNextPage(data.next);
+                setPreviousPage(data.previous);
                 setLoading(false);
             })
             .catch(error => {
@@ -57,22 +58,30 @@ export const Peliculas = () => {
         }
     };
 
+    const getImageUrl = (episode_id) => {
+        return `https://starwars-visualguide.com/assets/img/films/${episode_id}.jpg`;
+    };
+
+    const handleAddFavorite = (pelicula) => {
+        if (!favoriteMovie.includes(pelicula)) {
+            setFavoriteMovie([...favoriteMovie, pelicula]);
+        }
+    };
+
+    const handleRemoveFavorite = (pelicula) => {
+        setFavoriteMovie(favoriteMovie.filter(fav => fav.episode_id !== pelicula.episode_id));
+    };
 
     if (loading) {
         return <div>Cargando...</div>;
     }
 
-    const getImageUrl = (episode_id) => {
-        // Genera la URL de la imagen basada en el ID del episodio
-        return `https://starwars-visualguide.com/assets/img/films/${episode_id}.jpg`;
-    };
-
     return (
-
         <div>
             <NavbarComponent />
             <div className="container">
                 <h1>Películas de Star Wars</h1>
+                <button className="btn btn-primary mb-4" onClick={() => navigate('/favorite-movie')}>Ver Películas Favoritas</button>
                 <div className="row">
                     {peliculas.map(pelicula => (
                         <div className="col-md-4 mb-4" key={pelicula.episode_id}>
@@ -84,13 +93,19 @@ export const Peliculas = () => {
                                     onError={(e) => { e.target.onerror = null; e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"; }}
                                 />
                                 <div className="card-body">
-                                    <StarOutline />
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        {favoriteMovie.includes(pelicula) ? (
+                                            <StarIcon onClick={() => handleRemoveFavorite(pelicula)} style={{ cursor: 'pointer' }} />
+                                        ) : (
+                                            <StarOutline onClick={() => handleAddFavorite(pelicula)} style={{ cursor: 'pointer' }} />
+                                        )}
+                                        <button className="btn btn-primary" onClick={() => handleAddFavorite(pelicula)}>Agregar a Favoritos</button>
+                                    </div>
                                     <h5 className="card-title">{pelicula.title}</h5>
                                     <p className="card-text">Director: {pelicula.director}</p>
                                     <p className="card-text">Productor: {pelicula.producer}</p>
                                     <p className="card-text">Fecha de lanzamiento: {pelicula.release_date}</p>
                                     <p className="card-text">Episodio: {pelicula.episode_id}</p>
-
                                 </div>
                             </div>
                         </div>
@@ -105,3 +120,4 @@ export const Peliculas = () => {
     );
 };
 
+export default Peliculas;

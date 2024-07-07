@@ -7,7 +7,7 @@ import StarOutline from '@mui/icons-material/StarOutline';
 import '../styles/NavbarComponent.css';
 import { useNavigate } from 'react-router';
 
-export const NavbarComponent = () => {
+export const NavbarComponent = ({ favorites }) => {
 
   const navigate = useNavigate();
 
