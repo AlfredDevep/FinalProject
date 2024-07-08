@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider } from 'firebase/auth/web-extension';
 import Home from './Home';
+import Swal from 'sweetalert2';
 
 export const LoginForm = () => {
 
@@ -26,7 +27,12 @@ export const LoginForm = () => {
       navigate('/home');
     }
     else{
-      await signInWithEmailAndPassword(auth, email, password);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Contraseña incorrecta",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
     }
     }
 

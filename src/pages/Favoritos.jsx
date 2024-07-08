@@ -9,11 +9,11 @@ const Favoritos = () => {
     <>
     <NavbarComponent />
 
-      <FavoritePlanetsPage />
+      <FavoritePlanetsPage favoritePlanets={FavoritePlanetsPage}/>
       <br/>
-      <FavoriteMovie />
+      <FavoriteMovie favoriteMovies={FavoriteMovie}/>
       <br />
-      <Favorites />
+      <Favorites favorites={Favorites}/>
     </>
   )
 }
