@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavbarComponent } from '../components/NavbarComponent';
 import Planeta from '../pages/Planeta';
+import Swal from 'sweetalert2';
 
 const Planetas = ({ favoritePlanets, setFavoritePlanets }) => {
     const [loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ const Planetas = ({ favoritePlanets, setFavoritePlanets }) => {
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
             if (currentUser) {
                 localStorage.setItem(`favoritePlanets_${currentUser.uid}`, JSON.stringify(favoritePlanets));
+            
             }
         }
     }, [favoritePlanets]);
@@ -75,13 +77,27 @@ const Planetas = ({ favoritePlanets, setFavoritePlanets }) => {
     const handleAddFavorite = (planeta) => {
         if (!favoritePlanets.some(fav => fav.name === planeta.name)) {
             setFavoritePlanets([...favoritePlanets, planeta]);
-            console.log('Planeta agregado a favoritos:', planeta);
+            //console.log('Planeta agregado a favoritos:', planeta);
+            Swal.fire({
+                    
+                icon: "success",
+                title: "Se a agregado correctamente a tus favoritos",
+                showConfirmButton: false,
+                timer: 1500
+              });
         }
     };
 
     const handleRemoveFavorite = (planeta) => {
         setFavoritePlanets(favoritePlanets.filter(fav => fav.name !== planeta.name));
-        console.log('Planeta removido de favoritos:', planeta);
+        //console.log('Planeta removido de favoritos:', planeta);
+        Swal.fire({
+                    
+            icon: "error",
+            title: "Se a eliminado correctamente de tus favoritos",
+            showConfirmButton: false,
+            timer: 1500
+          });
     };
 
     const isFavorite = (planeta) => {
@@ -145,5 +161,8 @@ const Planetas = ({ favoritePlanets, setFavoritePlanets }) => {
 };
 
 export default Planetas;
+
+
+
 
 

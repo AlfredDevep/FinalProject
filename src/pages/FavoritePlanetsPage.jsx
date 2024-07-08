@@ -13,10 +13,17 @@ const FavoritePlanetsPage = ({ favoritePlanets, setFavoritePlanets }) => {
         if (currentUser) {
             
             localStorage.setItem(`favoritePlanets_${currentUser.uid}`, JSON.stringify(updatedFavorites));
-            
+           
                
         }
-        console.log('Planeta removido de favoritos:', planet);
+        //console.log('Planeta removido de favoritos:', planet);
+        Swal.fire({
+                    
+            icon: "error",
+            title: "Se elimino correctamente de tus favoritos",
+            showConfirmButton: false,
+            timer: 1500
+          });
     };
 
     const handleBackToPlanetas = () => {
@@ -66,5 +73,6 @@ const FavoritePlanetsPage = ({ favoritePlanets, setFavoritePlanets }) => {
 };
 
 export default FavoritePlanetsPage;
+
 
 
