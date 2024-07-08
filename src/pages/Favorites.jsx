@@ -6,15 +6,13 @@ const Favorites = ({ favorites, setFavorites }) => {
     const navigate = useNavigate();
 
     const handleRemoveFavorite = (personaje) => {
-        setFavorites(favorites.filter(fav => fav !== personaje));
+        setFavorites(favorites.filter(fav => fav.name !== personaje.name));
         console.log('Personaje removido de favoritos:', personaje);
     };
 
     const handleBackToPersonajes = () => {
         navigate('/personajes');
     };
-
-    
 
     return (
         <div>
@@ -23,11 +21,11 @@ const Favorites = ({ favorites, setFavorites }) => {
                 <h1>Favoritos</h1>
                 <button className="btn btn-primary mb-4" onClick={handleBackToPersonajes}>Regresar a Personajes</button>
                 <div className="row">
-                    {favorites.map((personaje, index) => (
+                    {favorites.map((personaje) => (
                         <div className="col-md-4 mb-4" key={personaje.name}>
                             <div className="card h-100">
                                 <img
-                                    src={`https://starwars-visualguide.com/assets/img/characters/${index + 1}.jpg`}
+                                    src={`https://starwars-visualguide.com/assets/img/characters/${personaje.url.split('/').slice(-2, -1)}.jpg`}
                                     className="card-img-top"
                                     alt={personaje.name}
                                     onError={(e) => { e.target.onerror = null; e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"; }}
@@ -59,4 +57,8 @@ const Favorites = ({ favorites, setFavorites }) => {
 };
 
 export default Favorites;
+
+
+
+
 

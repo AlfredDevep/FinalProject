@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase/config';
 import HomePage from './components/HomePage';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import Home from './components/Home';
-import { auth } from './firebase/config';
-import { onAuthStateChanged } from 'firebase/auth';
-import Planetas from './pages/Planetas';
-import { Peliculas } from './pages/Peliculas';
-import Favorites from './pages/Favorites';
 import Personajes from './pages/Personajes';
+import Favorites from './pages/Favorites';
+import Planetas from './pages/Planetas';
+import Peliculas from './pages/Peliculas';
 import FavoritePlanetsPage from './pages/FavoritePlanetsPage';
 import FavoriteMovie from './pages/FavoriteMovie';
 
@@ -24,39 +24,48 @@ const App = () => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        // Cargar películas favoritas desde el local storage al iniciar
-        const storedFavoriteMovies = localStorage.getItem(`favoriteMovies_${currentUser.uid}`);
-        if (storedFavoriteMovies) {
-          setFavoriteMovies(JSON.parse(storedFavoriteMovies));
-        }
+        // Cargar datos de localStorage al iniciar sesión
+        const storedFavorites = localStorage.getItem(`favoriteCharacters_${currentUser.uid}`);
+        const storedPlanets = localStorage.getItem(`favoritePlanets_${currentUser.uid}`);
+        const storedMovies = localStorage.getItem(`favoriteMovies_${currentUser.uid}`);
 
-        // Cargar planetas favoritos desde el local storage al iniciar
-        const storedFavoritePlanets = localStorage.getItem(`favoritePlanets_${currentUser.uid}`);
-        if (storedFavoritePlanets) {
-          setFavoritePlanets(JSON.parse(storedFavoritePlanets));
+        if (storedFavorites) {
+          setFavorites(JSON.parse(storedFavorites));
+        }
+        if (storedPlanets) {
+          setFavoritePlanets(JSON.parse(storedPlanets));
+        }
+        if (storedMovies) {
+          setFavoriteMovies(JSON.parse(storedMovies));
         }
       } else {
-        setFavoriteMovies([]);
+        setFavorites([]);
         setFavoritePlanets([]);
+        setFavoriteMovies([]);
       }
     });
 
     return () => unsubscribe();
   }, []);
 
-  // Guardar películas favoritas en el local storage
+  // Guardar favoritos en localStorage cuando cambian
   useEffect(() => {
     if (user) {
-      localStorage.setItem(`favoriteMovies_${user.uid}`, JSON.stringify(favoriteMovies));
+      localStorage.setItem(`favoriteCharacters_${user.uid}`, JSON.stringify(favorites));
     }
-  }, [favoriteMovies, user]);
+  }, [favorites, user]);
 
-  // Guardar planetas favoritos en el local storage
   useEffect(() => {
     if (user) {
       localStorage.setItem(`favoritePlanets_${user.uid}`, JSON.stringify(favoritePlanets));
     }
   }, [favoritePlanets, user]);
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem(`favoriteMovies_${user.uid}`, JSON.stringify(favoriteMovies));
+    }
+  }, [favoriteMovies, user]);
 
   return (
     <Router>
@@ -81,4 +90,5 @@ const App = () => {
 };
 
 export default App;
+
 
