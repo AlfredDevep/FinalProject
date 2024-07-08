@@ -14,9 +14,11 @@ const FavoriteMovie = ({ user, favoriteMovies, setFavoriteMovies }) => {
         if (user) {
             localStorage.setItem(`favoriteMovies_${user.uid}`, JSON.stringify(updatedFavorites));
             Swal.fire({
-                title: "Agregado",
-                text: "Planeta agregad a favoritas correctamente",
-                icon: "success"
+                    
+                icon: "error",
+                title: "Se elimino correctamente de tus favoritos",
+                showConfirmButton: false,
+                timer: 1500
               });
         }
     };

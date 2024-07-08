@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { NavbarComponent } from '../components/NavbarComponent';
 import StarOutline from '@mui/icons-material/StarOutline';
 import Star from '@mui/icons-material/Star';
+import Swal from 'sweetalert2';
 
 const Personajes = ({ favorites, setFavorites }) => {
     const [personajes, setPersonajes] = useState([]);
@@ -65,13 +66,27 @@ const Personajes = ({ favorites, setFavorites }) => {
     const handleAddFavorite = (personaje) => {
         if (!favorites.some(fav => fav.name === personaje.name)) {
             setFavorites([...favorites, personaje]);
-            console.log('Personaje agregado a favoritos:', personaje);
+            //console.log('Personaje agregado a favoritos:', personaje);
+            Swal.fire({
+                    
+                icon: "success",
+                title: "Se a agregado correctamente a tus favoritos",
+                showConfirmButton: false,
+                timer: 1500
+              });
         }
     };
 
     const handleRemoveFavorite = (personaje) => {
         setFavorites(favorites.filter(fav => fav.name !== personaje.name));
-        console.log('Personaje removido de favoritos:', personaje);
+        //console.log('Personaje removido de favoritos:', personaje);
+        Swal.fire({
+                    
+            icon: "error",
+            title: "Se elimino correctamente de tus favoritos",
+            showConfirmButton: false,
+            timer: 1500
+          });
     };
 
     const handleViewFavorites = () => {
