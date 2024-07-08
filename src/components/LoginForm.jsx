@@ -6,6 +6,7 @@ import { auth } from '../firebase/config';
 import { useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider } from 'firebase/auth/web-extension';
+import Home from './Home';
 
 export const LoginForm = () => {
 
@@ -50,7 +51,7 @@ export const LoginForm = () => {
           {errors.password && <p className="text-danger">{errors.password.message}</p>}
         </div>
         <button type="submit" className="btn btn-primary w-100" >Iniciar sesión</button>
-        <button  type="button" className="btn btn-secondary w-100 mt-2">Regresar</button>
+        <button  type="button" className="btn btn-secondary w-100 mt-2" onClick={() => navigate('/home')}>Regresar</button>
       </form>
     </div>
 </div>
