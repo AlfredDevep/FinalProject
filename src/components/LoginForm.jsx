@@ -27,12 +27,7 @@ export const LoginForm = () => {
       navigate('/home');
     }
     else{
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Contraseña incorrecta",
-        footer: '<a href="#">Why do I have this issue?</a>'
-      });
+      await signInWithEmailAndPassword(auth, email, password)
     }
     }
 
