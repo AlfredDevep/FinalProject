@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { NavbarComponent } from '../components/NavbarComponent';
 import StarOutline from '@mui/icons-material/StarOutline';
+import Star from '@mui/icons-material/Star';
 
 const Personajes = ({ favorites, setFavorites }) => {
     const [personajes, setPersonajes] = useState([]);
@@ -62,18 +63,19 @@ const Personajes = ({ favorites, setFavorites }) => {
     };
 
     const handleAddFavorite = (personaje) => {
-        if (favorites && !favorites.includes(personaje)) {
+        if (!favorites.some(fav => fav.name === personaje.name)) {
             setFavorites([...favorites, personaje]);
             console.log('Personaje agregado a favoritos:', personaje);
         }
     };
 
-    const handleViewFavorites = () => {
-        navigate('/favorites');
+    const handleRemoveFavorite = (personaje) => {
+        setFavorites(favorites.filter(fav => fav.name !== personaje.name));
+        console.log('Personaje removido de favoritos:', personaje);
     };
 
-    const handleBackToPersonajes = () => {
-        navigate('/personajes');
+    const handleViewFavorites = () => {
+        navigate('/favorites');
     };
 
     const filteredPersonajes = personajes.filter(personaje =>
@@ -104,15 +106,24 @@ const Personajes = ({ favorites, setFavorites }) => {
                         <div className="col-md-4 mb-4" key={personaje.name}>
                             <div className="card h-100">
                                 <img
-                                    src={`https://starwars-visualguide.com/assets/img/characters/${index + 1}.jpg`}
+                                    src={`https://starwars-visualguide.com/assets/img/characters/${personaje.url.split('/').slice(-2, -1)}.jpg`}
                                     className="card-img-top"
                                     alt={personaje.name}
                                     onError={(e) => { e.target.onerror = null; e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"; }}
                                 />
                                 <div className="card-body">
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <StarOutline onClick={() => handleAddFavorite(personaje)} style={{ cursor: 'pointer' }} />
-                                        <button className="btn btn-primary" onClick={() => handleAddFavorite(personaje)}>Agregar a Favoritos</button>
+                                    <div className="d-flex justify-content-between align-items-center mb-2">
+                                        {favorites.some(fav => fav.name === personaje.name) ? (
+                                            <>
+                                                <Star onClick={() => handleRemoveFavorite(personaje)} style={{ cursor: 'pointer', color: 'gold' }} />
+                                                <button className="btn btn-danger" onClick={() => handleRemoveFavorite(personaje)}>Eliminar de Favoritos</button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <StarOutline onClick={() => handleAddFavorite(personaje)} style={{ cursor: 'pointer' }} />
+                                                <button className="btn btn-primary" onClick={() => handleAddFavorite(personaje)}>Agregar a Favoritos</button>
+                                            </>
+                                        )}
                                     </div>
                                     <p className="card-text">Name: {personaje.name}</p>
                                     <p className="card-text">Height: {personaje.height}</p>
@@ -147,4 +158,6 @@ const Personajes = ({ favorites, setFavorites }) => {
 };
 
 export default Personajes;
+
+
 
