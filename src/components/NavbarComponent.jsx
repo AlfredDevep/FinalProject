@@ -6,7 +6,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import StarOutline from '@mui/icons-material/StarOutline';
 import '../styles/NavbarComponent.css';
 import { useNavigate } from 'react-router';
-import LoginForm from './LoginForm';
+
 
 export const NavbarComponent = ({ favorites }) => {
 
@@ -19,7 +19,7 @@ export const NavbarComponent = ({ favorites }) => {
   return (
     <nav className="navbar bg-body-tertiary">
       <div className="container-fluid navbar-container">
-        
+     
           <button className='btn btn-primary' onClick={handleGoHome}>Go Home</button>
         
         <div className="navbar-section search-section">

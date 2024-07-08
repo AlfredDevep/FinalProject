@@ -15,6 +15,7 @@ import FavoriteMovie from './pages/FavoriteMovie';
 
 const App = () => {
   const [user, setUser] = useState(null);
+
   const [favorites, setFavorites] = useState([]);
   const [favoritePlanets, setFavoritePlanets] = useState([]);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
@@ -75,12 +76,16 @@ const App = () => {
         <Route path="/home" element={user ? <Home /> : <Navigate to="/" />} />
         <Route path="/personajes" element={<Personajes favorites={favorites} setFavorites={setFavorites} />} />
         <Route path="/favorites" element={<Favorites favorites={favorites} setFavorites={setFavorites} />} />
+
+
+
         <Route path="/planetas" element={<Planetas favoritePlanets={favoritePlanets} setFavoritePlanets={setFavoritePlanets} />} />
         <Route path="/favorite-planets" element={<FavoritePlanetsPage favoritePlanets={favoritePlanets} setFavoritePlanets={setFavoritePlanets} />} />
         <Route path="/peliculas" element={<Peliculas user={user} favoriteMovies={favoriteMovies} setFavoriteMovies={setFavoriteMovies} />} />
         <Route path="/favorite-movie" element={<FavoriteMovie user={user} favoriteMovies={favoriteMovies} setFavoriteMovies={setFavoriteMovies} />} />
       </Routes>
     </Router>
+
   );
 };
 

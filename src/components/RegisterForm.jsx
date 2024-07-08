@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const schema = yup.object().shape({
   email: yup.string().email('Correo no válido').required('El correo es obligatorio'),
@@ -25,7 +26,13 @@ const RegisterForm = () => {
       
      navigate('/home');
     } catch (error) {
-      console.error(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Usuario ya esta registrado",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
+  
     }
   };
 

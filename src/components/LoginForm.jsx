@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { getAuth, createUserWithEmailAndPassword ,onAuthStateChanged,browserSessionPersistence, inMemoryPersistence, setPersistence, signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
@@ -6,7 +6,8 @@ import { auth } from '../firebase/config';
 import { useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider } from 'firebase/auth/web-extension';
-
+import Home from './Home';
+import Swal from 'sweetalert2';
 
 export const LoginForm = () => {
 
@@ -26,24 +27,17 @@ export const LoginForm = () => {
       navigate('/home');
     }
     else{
-      await signInWithEmailAndPassword(auth, email, password);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Contraseña incorrecta",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
     }
     }
 
 
   const navigate = useNavigate();
-/*
-  const onSubmitForm = async (data) => {
-    try {
-      // Configura la persistencia de la sesión aquí antes de iniciar sesión
-      await setPersistence(auth, browserSessionPersistence);
-      await signInWithEmailAndPassword(data.email, data.password); 
-      
-      
-    } catch (error) {
-      console.error(error.message);
-    }
-  };*/
 
   return (
     
@@ -63,7 +57,7 @@ export const LoginForm = () => {
           {errors.password && <p className="text-danger">{errors.password.message}</p>}
         </div>
         <button type="submit" className="btn btn-primary w-100" >Iniciar sesión</button>
-        <button  type="button" className="btn btn-secondary w-100 mt-2">Regresar</button>
+        <button  type="button" className="btn btn-secondary w-100 mt-2" onClick={() => navigate('/home')}>Regresar</button>
       </form>
     </div>
 </div>
