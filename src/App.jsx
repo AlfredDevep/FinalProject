@@ -24,12 +24,19 @@ const App = () => {
       setUser(currentUser);
       if (currentUser) {
         // Cargar películas favoritas desde el local storage al iniciar
-        const storedFavorites = localStorage.getItem(`favoriteMovies_${currentUser.uid}`);
-        if (storedFavorites) {
-          setFavoriteMovies(JSON.parse(storedFavorites));
+        const storedFavoriteMovies = localStorage.getItem(`favoriteMovies_${currentUser.uid}`);
+        if (storedFavoriteMovies) {
+          setFavoriteMovies(JSON.parse(storedFavoriteMovies));
+        }
+
+        // Cargar planetas favoritos desde el local storage al iniciar
+        const storedFavoritePlanets = localStorage.getItem(`favoritePlanets_${currentUser.uid}`);
+        if (storedFavoritePlanets) {
+          setFavoritePlanets(JSON.parse(storedFavoritePlanets));
         }
       } else {
         setFavoriteMovies([]);
+        setFavoritePlanets([]);
       }
     });
 
@@ -42,6 +49,13 @@ const App = () => {
       localStorage.setItem(`favoriteMovies_${user.uid}`, JSON.stringify(favoriteMovies));
     }
   }, [favoriteMovies, user]);
+
+  // Guardar planetas favoritos en el local storage
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem(`favoritePlanets_${user.uid}`, JSON.stringify(favoritePlanets));
+    }
+  }, [favoritePlanets, user]);
 
   return (
     <Router>
@@ -62,3 +76,4 @@ const App = () => {
 };
 
 export default App;
+
