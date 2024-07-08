@@ -27,8 +27,33 @@ export const LoginForm = () => {
       navigate('/home');
     }
     else{
+      if(email===""){
+      Swal.fire({
+        
+        icon: "error",
+        title: "Debes escribir un correo electronico",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }else if(password==="")
+    {
+      Swal.fire({
+        
+        icon: "error",
+        title: "Debes escribir tu contraseña",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }else {
+      Swal.fire({
+        
+        icon: "error",
+        title: "Credenciales invalidas",
+        showConfirmButton: false,
+        timer: 1500
+      });
       await signInWithEmailAndPassword(auth, email, password)
-      
+    }
     }
     }
 

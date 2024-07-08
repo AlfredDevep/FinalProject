@@ -6,13 +6,36 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { NavbarComponent } from './NavbarComponent';
-//import { LoginForm } from './LoginForm';
+import Swal from 'sweetalert2';
 
 
 const Home = () => {
   const navigate = useNavigate();
+  
+  const confirmacion = (handleLogout) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+          
+        });
+        
+      }
+    });
+  }
+  
+  const handleLogout = async () => {  
 
-  const handleLogout = async () => {
     try {
       await signOut(auth);
       navigate('/');
