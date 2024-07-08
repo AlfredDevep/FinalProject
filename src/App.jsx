@@ -45,6 +45,7 @@ const App = () => {
         <Route path="/favorite-movie" element={<FavoriteMovie favoriteMovie={favoriteMovie} setFavoriteMovie={setFavoriteMovie} />} />
       </Routes>
     </Router>
+
   );
 };
 

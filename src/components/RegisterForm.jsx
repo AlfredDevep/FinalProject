@@ -26,6 +26,7 @@ const RegisterForm = () => {
      navigate('/home');
     } catch (error) {
       console.error(error.message);
+  
     }
   };
 

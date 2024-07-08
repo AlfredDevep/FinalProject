@@ -1,5 +1,6 @@
 
 import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence, sendPasswordResetEmail} from 'firebase/auth'
+import { useContext } from 'react';
 
 export const session = () => {
     const auth = getAuth();

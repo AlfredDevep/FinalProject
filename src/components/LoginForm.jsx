@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { getAuth, createUserWithEmailAndPassword ,onAuthStateChanged,browserSessionPersistence, inMemoryPersistence, setPersistence, signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
@@ -6,7 +6,6 @@ import { auth } from '../firebase/config';
 import { useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider } from 'firebase/auth/web-extension';
-
 
 export const LoginForm = () => {
 
@@ -32,18 +31,6 @@ export const LoginForm = () => {
 
 
   const navigate = useNavigate();
-/*
-  const onSubmitForm = async (data) => {
-    try {
-      // Configura la persistencia de la sesión aquí antes de iniciar sesión
-      await setPersistence(auth, browserSessionPersistence);
-      await signInWithEmailAndPassword(data.email, data.password); 
-      
-      
-    } catch (error) {
-      console.error(error.message);
-    }
-  };*/
 
   return (
     
