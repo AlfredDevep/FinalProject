@@ -163,3 +163,6 @@ const Planetas = ({ favoritePlanets, setFavoritePlanets }) => {
 export default Planetas;
 
 
+
+
+

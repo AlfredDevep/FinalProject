@@ -51,3 +51,7 @@ const Planeta = ({ planeta, isFavorite, handleAddFavorite, handleRemoveFavorite 
 
 export default Planeta;
 
+
+
+
+
