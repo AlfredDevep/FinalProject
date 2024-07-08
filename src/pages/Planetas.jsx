@@ -1,5 +1,3 @@
-// pages/Planetas.jsx
-// pages/Planetas.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavbarComponent } from '../components/NavbarComponent';
@@ -30,6 +28,16 @@ const Planetas = ({ favoritePlanets, setFavoritePlanets }) => {
                 setLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        // Guardar planetas favoritos en el localStorage
+        if (favoritePlanets.length > 0) {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                localStorage.setItem(`favoritePlanets_${currentUser.uid}`, JSON.stringify(favoritePlanets));
+            }
+        }
+    }, [favoritePlanets]);
 
     const fetchPage = (pageUrl) => {
         setLoading(true);
@@ -137,3 +145,5 @@ const Planetas = ({ favoritePlanets, setFavoritePlanets }) => {
 };
 
 export default Planetas;
+
+
