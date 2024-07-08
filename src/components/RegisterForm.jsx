@@ -41,7 +41,8 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
+    <div style={{backgroundImage: 'url(https://mymodernmet.com/wp/wp-content/uploads/2020/04/star-wars-video-call-backgrounds-thumbnail.jpg)'}} >
+    <div className="d-flex justify-content-center align-items-center vh-100" >
       <form onSubmit={handleSubmit(onSubmitForm)} className="p-4 border rounded bg-light">
         <div className="mb-3">
           <label htmlFor="email" className="form-label" name="email">Email</label>
@@ -70,7 +71,7 @@ const RegisterForm = () => {
         <button type="submit" className="btn btn-primary w-100">Registrarse</button>
         <button onClick={() => navigate('/')} type="button" className="btn btn-secondary w-100 mt-2">Regresar</button>
       </form>
-     
+      </div> 
     </div>
   );
 };
