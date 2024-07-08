@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavbarComponent } from '../components/NavbarComponent';
+import Swal from 'sweetalert2';
 
 const FavoritePlanetsPage = ({ favoritePlanets, setFavoritePlanets }) => {
     const navigate = useNavigate();
@@ -10,7 +11,10 @@ const FavoritePlanetsPage = ({ favoritePlanets, setFavoritePlanets }) => {
         setFavoritePlanets(updatedFavorites);
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser) {
+            
             localStorage.setItem(`favoritePlanets_${currentUser.uid}`, JSON.stringify(updatedFavorites));
+            
+               
         }
         console.log('Planeta removido de favoritos:', planet);
     };

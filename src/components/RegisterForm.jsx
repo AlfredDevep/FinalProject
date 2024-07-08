@@ -21,7 +21,11 @@ const RegisterForm = () => {
 
   const onSubmitForm = async (data) => {
     try {
-     
+      Swal.fire({
+        title: "Registrado",
+        text: "Usuario agregado correctamente",
+        icon: "success"
+      });
       await createUserWithEmailAndPassword(auth, data.email, data.password);
       
      navigate('/home');

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { NavbarComponent } from '../components/NavbarComponent';
 import StarIcon from '@mui/icons-material/Star';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
 
 const FavoriteMovie = ({ user, favoriteMovies, setFavoriteMovies }) => {
     const navigate = useNavigate();
@@ -12,6 +13,11 @@ const FavoriteMovie = ({ user, favoriteMovies, setFavoriteMovies }) => {
         setFavoriteMovies(updatedFavorites);
         if (user) {
             localStorage.setItem(`favoriteMovies_${user.uid}`, JSON.stringify(updatedFavorites));
+            Swal.fire({
+                title: "Agregado",
+                text: "Planeta agregad a favoritas correctamente",
+                icon: "success"
+              });
         }
     };
 
