@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { NavbarComponent } from '../components/NavbarComponent';
 import StarOutline from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export const Peliculas = ({ favoriteMovie, setFavoriteMovie }) => {
+export const Peliculas = ({ user, favoriteMovies, setFavoriteMovies }) => {
     const [peliculas, setPeliculas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState(null);
@@ -63,13 +64,24 @@ export const Peliculas = ({ favoriteMovie, setFavoriteMovie }) => {
     };
 
     const handleAddFavorite = (pelicula) => {
-        if (!favoriteMovie.includes(pelicula)) {
-            setFavoriteMovie([...favoriteMovie, pelicula]);
+        if (!favoriteMovies.some(fav => fav.episode_id === pelicula.episode_id)) {
+            const updatedFavorites = [...favoriteMovies, pelicula];
+            setFavoriteMovies(updatedFavorites);
+            
+            // Guardar en localStorage
+            if (user) {
+                localStorage.setItem(`favoriteMovies_${user.uid}`, JSON.stringify(updatedFavorites));
+            }
         }
     };
 
     const handleRemoveFavorite = (pelicula) => {
-        setFavoriteMovie(favoriteMovie.filter(fav => fav.episode_id !== pelicula.episode_id));
+        const updatedFavorites = favoriteMovies.filter(fav => fav.episode_id !== pelicula.episode_id);
+        setFavoriteMovies(updatedFavorites);
+
+        if (user) {
+            localStorage.setItem(`favoriteMovies_${user.uid}`, JSON.stringify(updatedFavorites));
+        }
     };
 
     if (loading) {
@@ -94,12 +106,18 @@ export const Peliculas = ({ favoriteMovie, setFavoriteMovie }) => {
                                 />
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between align-items-center">
-                                        {favoriteMovie.includes(pelicula) ? (
-                                            <StarIcon onClick={() => handleRemoveFavorite(pelicula)} style={{ cursor: 'pointer' }} />
+                                        {favoriteMovies.some(fav => fav.episode_id === pelicula.episode_id) ? (
+                                            <>
+                                                <StarIcon onClick={() => handleRemoveFavorite(pelicula)} style={{ cursor: 'pointer' }} />
+                                                <button onClick={() => handleRemoveFavorite(pelicula)} className="btn btn-danger btn-sm">
+                                                    <DeleteIcon /> Eliminar
+                                                </button>
+                                            </>
                                         ) : (
-                                            <StarOutline onClick={() => handleAddFavorite(pelicula)} style={{ cursor: 'pointer' }} />
+                                            <button onClick={() => handleAddFavorite(pelicula)} className="btn btn-primary btn-sm">
+                                                <StarOutline /> Agregar a Favoritos
+                                            </button>
                                         )}
-                                        <button className="btn btn-primary" onClick={() => handleAddFavorite(pelicula)}>Agregar a Favoritos</button>
                                     </div>
                                     <h5 className="card-title">{pelicula.title}</h5>
                                     <p className="card-text">Director: {pelicula.director}</p>
@@ -121,3 +139,8 @@ export const Peliculas = ({ favoriteMovie, setFavoriteMovie }) => {
 };
 
 export default Peliculas;
+
+
+
+
+
