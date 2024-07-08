@@ -4,6 +4,7 @@ import { NavbarComponent } from '../components/NavbarComponent';
 import StarOutline from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
 
 export const Peliculas = ({ user, favoriteMovies, setFavoriteMovies }) => {
     const [peliculas, setPeliculas] = useState([]);
@@ -71,6 +72,13 @@ export const Peliculas = ({ user, favoriteMovies, setFavoriteMovies }) => {
             // Guardar en localStorage
             if (user) {
                 localStorage.setItem(`favoriteMovies_${user.uid}`, JSON.stringify(updatedFavorites));
+                Swal.fire({
+                    
+                    icon: "success",
+                    title: "Se a agregado correctamente a tus favoritos",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
             }
         }
     };
@@ -81,6 +89,13 @@ export const Peliculas = ({ user, favoriteMovies, setFavoriteMovies }) => {
 
         if (user) {
             localStorage.setItem(`favoriteMovies_${user.uid}`, JSON.stringify(updatedFavorites));
+            Swal.fire({
+                    
+                icon: "error",
+                title: "Se elimino correctamente de tus favoritos",
+                showConfirmButton: false,
+                timer: 1500
+              });
         }
     };
 

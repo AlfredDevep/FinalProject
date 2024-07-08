@@ -28,6 +28,7 @@ export const LoginForm = () => {
     }
     else{
       await signInWithEmailAndPassword(auth, email, password)
+      
     }
     }
 

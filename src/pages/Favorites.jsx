@@ -1,13 +1,21 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavbarComponent } from '../components/NavbarComponent';
-
+import Swal from 'sweetalert2';
+Swal
 const Favorites = ({ favorites, setFavorites }) => {
     const navigate = useNavigate();
 
     const handleRemoveFavorite = (personaje) => {
         setFavorites(favorites.filter(fav => fav.name !== personaje.name));
-        console.log('Personaje removido de favoritos:', personaje);
+        //console.log('Personaje removido de favoritos:', personaje);
+        Swal.fire({
+                    
+            icon: "error",
+            title: "Se elimino correctamente de tus favoritos",
+            showConfirmButton: false,
+            timer: 1500
+          });
     };
 
     const handleBackToPersonajes = () => {
